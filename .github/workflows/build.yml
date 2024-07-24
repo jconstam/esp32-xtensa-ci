@@ -1,0 +1,38 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build Container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build Container
+        run: bash build.sh
+      - name: Login to Docker Hub
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Push Container
+        if: ${{ github.event_name != 'pull_request' }}
+        run: bash push.sh
+      # This won't work right now because the DockerHub API does not support pushing descriptions with 2FA enabled.
+      - name: Update DockerHub Description
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: christian-korneck/update-container-description-action@v1
+        env:
+          DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
+        with:
+          destination_container_repo: jconstam/esp32-xtensa-ci
+          provider: dockerhub
+          short_description: 'A collection of tools for managing continuous integration of a C/C++ embedded ESP32 project.'
+          readme_file: 'README.md'
