@@ -75,8 +75,7 @@ The AWS Command Line tool `aws` is installed from the zip file provided by Amazo
  - `yattag`
  - `pytz`
  - `junit2html`
- - `flake8==4.0.1`
-  - Temporarily fixed to v4.0.1 due to an incompatibility in `flake8-html`
+ - `flake8`
  - `flake8-html`
  - `clang-html`
  - `robotframework`

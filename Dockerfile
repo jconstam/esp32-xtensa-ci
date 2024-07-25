@@ -83,7 +83,7 @@ RUN pip3 install --break-system-packages \
     yattag \
     pytz \
     junit2html \
-    flake8==4.0.1 \
+    flake8 \
     flake8-html \
     clang-html \
     robotframework \
