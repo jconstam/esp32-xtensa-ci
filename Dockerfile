@@ -74,8 +74,10 @@ RUN apt-get -y autoremove && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install packages from gem
-RUN gem install ceedling
+# Install preview release of Ceedling
+# This is needed because Ubuntu 24.04 uses Ruby 3 and Ceedling is in the process of adding support for it.
+ADD https://github.com/ThrowTheSwitch/Ceedling/releases/download/1.0.0-af7630b/ceedling-1.0.0-af7630b.gem ./ceedling-1.0.0.gem
+RUN gem install ./ceedling-1.0.0.gem
 
 # Install packages from pip
 RUN pip3 install --break-system-packages \
