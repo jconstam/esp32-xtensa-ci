@@ -69,14 +69,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     libsdl2-2.0-0 \
     libslirp0
 
-# Cleanup Apt
-RUN apt-get -y autoremove && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
 # Install preview release of Ceedling
 # This is needed because Ubuntu 24.04 uses Ruby 3 and Ceedling is in the process of adding support for it.
-ADD https://github.com/ThrowTheSwitch/Ceedling/releases/download/1.0.0-af7630b/ceedling-1.0.0-af7630b.gem ./ceedling-1.0.0.gem
+ADD https://github.com/ThrowTheSwitch/Ceedling/releases/download/1.0.0-95edb5b/ceedling-1.0.0-95edb5b.gem ./ceedling-1.0.0.gem
 RUN gem install ./ceedling-1.0.0.gem
 
 # Install packages from pip
@@ -112,3 +107,25 @@ RUN unzip ./awscliv2.zip
 RUN ./aws/install
 RUN rm -rf ./aws
 RUN rm -rf ./awscliv2.zip
+
+# Build and Install MOS
+RUN add-apt-repository universe
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends \
+    golang-go \
+    libftdi-dev \
+    libftdi1-dev \
+    libusb-1.0.0-dev
+RUN git clone https://github.com/mongoose-os/mos
+RUN git -C mos checkout 2.20.0
+RUN make -C mos deps
+RUN make -C mos
+RUN cp mos/mos /usr/local/bin/mos
+RUN rm -rf mos
+RUN DEBIAN_FRONTEND=noninteractive apt-get remove -y -q golang-go
+RUN mkdir -p ~/.mos
+RUN mos version
+
+# Cleanup Apt
+RUN apt-get -y autoremove && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*

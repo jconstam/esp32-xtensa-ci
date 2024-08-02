@@ -6,6 +6,7 @@ A collection of tools for managing continuous integration of a C/C++ embedded ES
 
 ## Tools
 
+The Mongoose OS tool `mos` is built from source.
 The AWS Command Line tool `aws` is installed from the zip file provided by Amazon.
 
 ### Aptitude Packages
@@ -65,6 +66,9 @@ The AWS Command Line tool `aws` is installed from the zip file provided by Amazo
  - `libpixman-1-0`
  - `libsdl2-2.0-0`
  - `libslirp0`
+ - `libftdi-dev`
+ - `libftdi1-dev`
+ - `libusb-1.0.0-dev`
 
 ### Gem Packages
 
