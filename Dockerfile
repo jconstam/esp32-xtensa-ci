@@ -71,7 +71,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 
 # Install preview release of Ceedling
 # This is needed because Ubuntu 24.04 uses Ruby 3 and Ceedling is in the process of adding support for it.
-ADD https://github.com/ThrowTheSwitch/Ceedling/releases/download/1.0.0-95edb5b/ceedling-1.0.0-95edb5b.gem ./ceedling-1.0.0.gem
+ADD https://github.com/ThrowTheSwitch/Ceedling/releases/download/1.0.0-e06f844/ceedling-1.0.0-e06f844.gem ./ceedling-1.0.0.gem
 RUN gem install ./ceedling-1.0.0.gem
 
 # Install packages from pip
@@ -99,7 +99,8 @@ RUN pip3 install --break-system-packages \
     validators \
     zeroconf \
     virtualenv \
-    icmplib
+    icmplib \
+    GitPython
 
 # Setup AWS CLI
 ADD https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip ./awscliv2.zip
