@@ -100,7 +100,8 @@ RUN pip3 install --break-system-packages \
     zeroconf \
     virtualenv \
     icmplib \
-    GitPython
+    GitPython \
+    mypy
 
 # Setup AWS CLI
 ADD https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip ./awscliv2.zip
