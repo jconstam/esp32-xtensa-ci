@@ -69,9 +69,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     libsdl2-2.0-0 \
     libslirp0
 
-# Install packages from gem
-RUN gem install \
-    ceedling -v 1.0.1
+# Install preview release of Ceedling
+# There is a bug in the current release (1.0.1) which prevents unit testing.
+ADD https://github.com/ThrowTheSwitch/Ceedling/releases/download/1.0.2-72c0935/ceedling-1.0.2-72c0935.gem ./ceedling-1.0.2.gem
+RUN gem install ./ceedling-1.0.2.gem
 
 # Install packages from pip
 RUN pip3 install --break-system-packages \
