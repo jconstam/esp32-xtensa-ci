@@ -3,8 +3,8 @@ FROM ubuntu:24.04
 
 # LABEL about the custom image
 LABEL maintainer="jconstam@gmail.com"
-LABEL version="2.2"
-LABEL description="A collection of tools for managing continuous integration of a C/C++ embedded ARM project."
+LABEL version="2.3"
+LABEL description="A collection of tools for managing continuous integration of a C/C++ embedded project using ESP32."
 
 # Add volume for the code repository
 WORKDIR /repo
@@ -101,7 +101,10 @@ RUN pip3 install --break-system-packages \
     virtualenv \
     icmplib \
     GitPython \
-    mypy
+    mypy \
+    pymssql \
+    zmq \
+    urwid
 
 # Setup AWS CLI
 ADD https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip ./awscliv2.zip
